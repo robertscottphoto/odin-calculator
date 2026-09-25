@@ -1,0 +1,94 @@
+
+.bitcount-single-calculator {
+  font-family: "Bitcount Single", system-ui !important;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 4em;
+  font-variation-settings:
+    "slnt" -4,
+    "CRSV" 0.5,
+    "ELSH" 50,
+    "ELXP" 0;
+}
+* {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding-bottom: 400px;
+            background: #333;
+        }
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px; 
+            border-top: 4px solid rgb(108, 108, 108);
+            border-right: 2px solid rgb(108, 108, 108);
+            border-left: 2px solid rgb(108, 108, 108);
+            box-shadow: 0px 0px 5px rgb(149, 79, 79);;
+            padding: 10px;
+            width: 380px;
+            box-shadow:  rgb(0, 0, 0) 0px 10px 0px 1px;
+        }
+        .calculator > div, .calculator > button {
+            
+            padding: 20px 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .calculator > button:active {
+            transform: translateY(3px);
+            box-shadow:  none;
+        }
+        .calculator > button {
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0px 4px #aaa;
+            border: none;
+        }
+        .btn, .number {
+            font-size: 1.4em;
+        }
+
+        .display, .display-output {
+            grid-column: 1 / span 4;
+            text-align: right;
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center
+            background-color: #374039;
+            color: #79eea6;
+            box-shadow: inset rgb(0, 0, 0) 0px 0px 0px;
+        }
+
+        .display-output {
+            box-shadow: inset rgb(0, 0, 0) 0px 5px 10px;
+        }
+
+        .display-small {
+            height: 20%;
+            font-size: 2em;
+            box-shadow: none;
+            opacity: 60%;
+        }
+
+        .top-row, .operator {
+            background-color: #712ccb;
+            color: white;
+            font-size: 1.8em;
+        }
+        .alt {
+            background-color: rgb(63, 170, 156);
+        }
+        .btn-zero {
+            grid-column: 1 / span 2;
+        }
