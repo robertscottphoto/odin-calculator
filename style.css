@@ -25,6 +25,8 @@
             padding-bottom: 400px;
             background: #333;
         }
+
+       
         .calculator {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -71,7 +73,7 @@
         }
 
         .display-output {
-            box-shadow: inset rgb(0, 0, 0) 0px 5px 10px;
+            box-shadow: inset rgb(97, 255, 83) 0px 40px 50px -40px;
         }
 
         .display-small {
