@@ -1,6 +1,6 @@
 
 .bitcount-single-calculator {
-  font-family: "Bitcount Single", system-ui !important;
+  font-family: "Bitcount Single", system-ui;
   font-optical-sizing: auto;
   font-weight: 300;
   font-style: normal;
@@ -11,6 +11,18 @@
     "ELSH" 50,
     "ELXP" 0;
 }
+
+.science-gothic-casio {
+  font-family: "Science Gothic", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0,
+    "wdth" 100,
+    "CTRS" 0;
+}
+
 * {
             box-sizing: border-box;
             margin: 0;
@@ -26,6 +38,7 @@
             background: #333;
         }
 
+     
        
         .calculator {
             display: grid;
@@ -66,15 +79,63 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            align-items: center
-            background-color: #374039;
-            color: #79eea6;
+            align-items: end;
             box-shadow: inset rgb(0, 0, 0) 0px 0px 0px;
         }
 
-        .display-output {
+        .display-output-on {
             box-shadow: inset rgb(97, 255, 83) 0px 40px 50px -40px;
+            color: #79eea6;
         }
+        
+
+        .title {
+            grid-column: 1 / span 4;
+            text-align: right;
+            min-height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            border-bottom: 10px solid #222;
+            border-left: 2px solid #000;
+            border-right: 2px solid #000;
+            color: #666;
+            box-shadow: rgb(0, 0, 0) 0px 5px 5px;
+            transition: transform 400ms ease-out;
+       }
+       .title-on {
+        border-bottom: 10px solid #2caa3d;
+       }
+       .pwr-container {
+        transition: transform 500ms ease-out;
+        border-radius: 25%;
+        box-shadow: #000 0px 3px 2px;
+       }
+       .pwr-container:active{
+        stroke: rgb(188, 4, 50);
+        transform: translateY(3px);
+        box-shadow: #000 0px 2px 2px;
+       }
+       svg {
+        transition: transform 400ms ease-out;
+       }
+       .pwr-btn{
+        stroke: rgb(226, 54, 54);
+       }
+        
+       .pwr-on {
+        transition: transform 200ms ease-out;
+        border-radius: 25%;
+        box-shadow: #478a49 0px 3px 10px;
+       }
+      
+       .pwr-btn-on {
+        stroke: rgb(111, 255, 169);
+       }
+       .test {
+        border: 2px solid yellow;
+       }
 
         .display-small {
             height: 20%;

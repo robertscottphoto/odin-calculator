@@ -6,15 +6,25 @@
     <title>Calculator Scaffolding</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&family=Bitcount+Single:wght@100..900&family=Commissioner:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&family=Bitcount+Single:wght@100..900&family=Science+Gothic:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="calculator">
-        <div class="display-output">
-            <div class="display display-small results bitcount-single-calculator">500+150</div>
-            <div class="display results bitcount-single-calculator">888888.88</div>
+        <div class="title" id="title">
+            <h3 class="science-gothic-casio">OISAC</h3>
+            <span class="pwr-container" id="power">
+                <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                    <g id="SVGRepo_iconCarrier"> <path d="M12 7V12M8 8.99951C7.37209 9.83526 7 10.8742 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 10.8742 16.6279 9.83526 16 8.99951M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#ff0000" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="pwr-btn"/> </g>
+                </svg>
+            </span>
+        </div>
+        <div class="display-output display-output-off" id="display-background">
+            <div class="display display-small results bitcount-single-calculator" id="temp-display" >500+150</div>
+            <div class="display results bitcount-single-calculator" id="main-display">888888.88</div>
         </div>
         
         <!-- Row 1 -->
@@ -43,5 +53,6 @@
         <button class="btn equals operator">=</button>
     </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
