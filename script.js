@@ -1,16 +1,25 @@
+//VARIABLES
+const powerBtn = document.getElementById("power")
+const powerSvg = document.getElementById("SVGRepo_iconCarrier").firstElementChild
+const bgDisplay = document.getElementById("display-background")
+const tempDisplay = document.getElementById("temp-display")
+const mainDisplay = document.getElementById("main-display")
+const titleBar = document.getElementById("title")
+const calculator = document.querySelector(".calculator")
+let collection = []
+
 //FUNCTIONS
 function lightUp(){
-    runningState = ""
+    let runningState = ""
     powerBtn.classList.toggle('pwr-on');
-    setMainDisplay()
-    console.log(runningState)
     powerSvg.classList.toggle('pwr-btn-on')
     bgDisplay.classList.toggle('display-output-on')
     bgDisplay.classList.toggle('display-output-off')
     tempDisplay.classList.toggle('display-output-on')
-    titleBar.classList.toggle('title-on')
+    titleBar.classList.toggle('title-on')  
 }
 function setMainDisplay(){
+    
     if(powerBtn.classList.contains('pwr-on')){
       mainDisplay.textContent = "0"
       tempDisplay.textContent = "enter sum"
@@ -21,37 +30,37 @@ function setMainDisplay(){
       mainDisplay.textContent = ""
       tempDisplay.textContent = ""
       runningState = false
+      clear()
+      collection = []
       return runningState
     }
 }
 
-function main(){
-  let firstNum = ""
-  let operation = ""
-  let seconNum = ""
+function evaluate(collection){
+    strCollection = collection.join("")
+    if(collection.length > 0){
+        tempDisplay.textContent = strCollection
+    }
+}
 
+function clear(){
+    tempDisplay.textContent = ""
 }
 
 
-//VARIABLES
-const powerBtn = document.getElementById("power")
-const powerSvg = document.getElementById("SVGRepo_iconCarrier").firstElementChild
-const bgDisplay = document.getElementById("display-background")
-const tempDisplay = document.getElementById("temp-display")
-const mainDisplay = document.getElementById("main-display")
-const titleBar = document.getElementById("title")
-const calculator = document.querySelector(".calculator")
-
-
 //EVENT LISTENERS
-powerBtn.addEventListener('click', function () {
+powerBtn.addEventListener('click', function () { 
     lightUp()
+    setMainDisplay() // returns True/False depending on calculator power On/Off
 });
 
 //We're experiencing troubleshooting with this. Trying to obtain the content of any button within the calculator and it's not working
 calculator.addEventListener('click', (event) => {
+    inputChoice = event.target.textContent
     if (event.target.matches('button')) {
-        console.log(event.target.textContent); 
+        console.log(inputChoice)
+        collection.push(inputChoice)
+        evaluate(collection)
     }
 });
 
