@@ -7,10 +7,10 @@ const mainDisplay = document.getElementById("main-display")
 const titleBar = document.getElementById("title")
 const calculator = document.querySelector(".calculator")
 let collection = []
-
+let runningState = false
 //FUNCTIONS
 function lightUp(){
-    let runningState = ""
+    
     powerBtn.classList.toggle('pwr-on');
     powerSvg.classList.toggle('pwr-btn-on')
     bgDisplay.classList.toggle('display-output-on')
@@ -57,10 +57,13 @@ powerBtn.addEventListener('click', function () {
 //We're experiencing troubleshooting with this. Trying to obtain the content of any button within the calculator and it's not working
 calculator.addEventListener('click', (event) => {
     inputChoice = event.target.textContent
-    if (event.target.matches('button')) {
+    //check that running state is true
+    if(runningState){
+        if (event.target.matches('button')) {
         console.log(inputChoice)
         collection.push(inputChoice)
         evaluate(collection)
+        }
     }
 });
 
