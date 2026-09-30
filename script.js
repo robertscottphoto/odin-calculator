@@ -6,8 +6,12 @@ const tempDisplay = document.getElementById("temp-display")
 const mainDisplay = document.getElementById("main-display")
 const titleBar = document.getElementById("title")
 const calculator = document.querySelector(".calculator")
-let collection = []
 let runningState = false
+const state = {
+    isPowerOn: false,
+    currentOperand: '0',
+    operator: null
+};
 //FUNCTIONS
 function lightUp(){
     
@@ -21,27 +25,22 @@ function lightUp(){
 function setMainDisplay(){
     
     if(powerBtn.classList.contains('pwr-on')){
-      mainDisplay.textContent = "0"
+      mainDisplay.textContent = state.currentOperand
       tempDisplay.textContent = "enter sum"
-      runningState = true
-      return runningState
+      state.isPowerOn = true
+      return state.isPowerOn
     }
     else{
       mainDisplay.textContent = ""
       tempDisplay.textContent = ""
-      runningState = false
+      state.isPowerOn = false
       clear()
       collection = []
       return runningState
     }
 }
 
-function evaluate(collection){
-    strCollection = collection.join("")
-    if(collection.length > 0){
-        tempDisplay.textContent = strCollection
-    }
-}
+
 
 function clear(){
     tempDisplay.textContent = ""
@@ -56,15 +55,22 @@ powerBtn.addEventListener('click', function () {
 
 //We're experiencing troubleshooting with this. Trying to obtain the content of any button within the calculator and it's not working
 calculator.addEventListener('click', (event) => {
-    inputChoice = event.target.textContent
-    //check that running state is true
-    if(runningState){
-        if (event.target.matches('button')) {
-        console.log(inputChoice)
-        collection.push(inputChoice)
-        evaluate(collection)
-        }
+    
+    //If calculator isn't powered on, don't allow any input to be captured
+    if(!state.isPowerOn) return;
+
+    //ignore zeroes
+    if(state.currentOperand === '0' && event.target.dataset.value === "0") return;
+
+    
+    if (event.target.matches('button')) {
+    //const inputChoice = event.target.textContent
+    const inputChoice = event.target.dataset.value
+    state.currentOperand += event.target.dataset.value
+    console.log(`Button Clicked:${inputChoice}`)
+    console.log(`${state.currentOperand}`)
     }
+
 });
 
 
