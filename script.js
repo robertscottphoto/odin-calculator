@@ -65,14 +65,14 @@ calculator.addEventListener('click', (event) => {
     
     //If calculator isn't powered on, don't allow any input to be captured
     if(!state.isPowerOn) return
-    //ignore zeroes
+    //ignore trailing zeroes when the current value is zero
     if(state.currentOperand === '0' && event.target.dataset.value === "0") return;
 
     if (event.target.matches('button')) {
     //const inputChoice = event.target.textContent
     const inputChoice = event.target.dataset.value
 
-    //1.Don't allow repeated zeroes for operand input
+    //remove initially displayed zero when capturing operand input
     if(state.currentOperand == '0'){
         state.currentOperand = event.target.dataset.value
     }
