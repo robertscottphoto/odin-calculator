@@ -31,15 +31,26 @@
 
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            padding-bottom: 300px;
-            background: #333;
+            background: #8f7867;
         }
 
      
-       
+        .head {
+            margin: 20px 0px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            width: 255px;
+            line-height: 2.5ch;
+        }
+        a {
+            color: rgb(77, 68, 56);
+        }
         .calculator {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -47,15 +58,17 @@
             border-top: 4px solid rgb(108, 108, 108);
             border-right: 2px solid rgb(108, 108, 108);
             border-left: 2px solid rgb(108, 108, 108);
-            box-shadow: 0px 0px 5px rgb(149, 79, 79);;
+            border-bottom: 10px solid rgb(76, 63, 63);
             padding: 10px;
-            margin-top: 200px;
-            width: 380px;
-            box-shadow:  rgb(0, 0, 0) 0px 10px 0px 1px;
+            width: 300px;
+            box-shadow:  rgb(0, 0, 0) 0px 10px 8px -2px;
+            background-color: #2a2a2a;
+            transform: scale(0.85);
+            transform-origin: top center;
         }
         .calculator > div, .calculator > button {
             
-            padding: 20px 10px;
+            padding: 10px 10px;
             text-align: center;
             cursor: pointer;
         }
@@ -73,6 +86,7 @@
             font-size: 1.4em;
         }
 
+       
         .display, .display-output {
             grid-column: 1 / span 4;
             text-align: right;
@@ -83,6 +97,7 @@
             flex-wrap: wrap;
             align-items: end;
             box-shadow: inset rgb(0, 0, 0) 0px 0px 0px;
+            overflow: hidden;
         }
 
         .display-output-on {
@@ -127,7 +142,7 @@
        }
         
        .pwr-on {
-        transition: transform 200ms ease-out;
+        transition: transform 300ms ease-out;
         border-radius: 25%;
         box-shadow: #478a49 0px 3px 10px;
        }

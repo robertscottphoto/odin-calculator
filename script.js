@@ -8,6 +8,8 @@ const titleBar = document.getElementById("title")
 const calculator = document.querySelector(".calculator")
 let runningState = false
 let tempArray = []
+
+//STATE OBJECT
 const state = {
     isPowerOn: false,
     previousOperand: '0',
@@ -50,16 +52,15 @@ function clear(){
     tempArray = []
 }
 function calculate(first, operator, second) {
-      const a = parseFloat(first);
-      const b = parseFloat(second);
-      if (operator === 'add') return (a + b).toString();
-      else if (operator === 'multiply') return (a * b).toString();
-      else if (operator === 'subtract') return (a - b).toString();
-      else if (operator === 'percentage') return (a % b).toString();
-      else if (operator === 'divide') {
-        if(a === 0 || b === 0){
-            return 'Why!?'
-        }
+      const a = parseFloat(first)
+      const b = parseFloat(second)
+      if (operator === 'add') return (a + b).toString()
+        else if (operator === 'multiply') return (a * b).toString()
+        else if (operator === 'subtract') return (a - b).toString()
+        else if (operator === 'percentage' && isNaN(b)) return (a / 100).toString()
+        else if (operator === 'percentage') return (a % b).toString()
+        else if (operator === 'divide' && (a === 0 || b === 0)) return 'NO!'
+        else if (operator === 'divide'){
         const result = a / b
         if(result.toString().length > 3){
             return result.toFixed(3).toString()
@@ -71,6 +72,11 @@ function calculate(first, operator, second) {
       }
       return second;
     }
+function toggleSign(value) {
+    if (!value || value === '0') return value;
+
+    return value.startsWith('-') ? value.slice(1) : '-' + value;
+}
 function logState(){
     console.log(tempArray)
     console.log(`isPowerOn: ${state.isPowerOn}
@@ -80,6 +86,8 @@ nextOperand: ${state.nextOperand}`)
 }
 
 //EVENT LISTENERS
+
+//Power-Up Listener
 powerBtn.addEventListener('click', function () { 
     clear()
     lightUp()
@@ -98,15 +106,15 @@ calculator.addEventListener('click', (event) => {
     //ignore trailing zeroes when the current value is zero
     if(state.previousOperand === '0' && event.target.dataset.value === "0") return;
 
-    //const inputChoice = event.target.textContent
     const inputChoice = event.target.dataset.value
-
+    console.log(typeof(inputChoice))
     //Handle Operand
     if((event.target.dataset.type === "number" || event.target.dataset.type === "decimal") && state.operator === ''){
         if(state.previousOperand.length > 7) return
         
         if(inputChoice === "." && state.previousOperand.includes(".")) return
         //Remove initially displayed zero when capturing operand input
+
         if(state.previousOperand == '0'){
             state.previousOperand = event.target.dataset.value
         }
@@ -116,17 +124,32 @@ calculator.addEventListener('click', (event) => {
         mainDisplay.textContent = state.previousOperand
         tempArray[0] = state.previousOperand
     }
-    //Handle Operators
+    
+    //Handle Operators 
+    ////Listen for the plusMinus button which should flip the pos/neg sign. 
+    else if(event.target.dataset.value === "plusMinus"){ 
+        if (state.operator.length > 0) {
+            state.nextOperand = toggleSign(state.nextOperand);
+            mainDisplay.textContent = state.nextOperand || '0';
+            tempArray[2] = state.nextOperand;
+        } 
+        else {
+            state.previousOperand = toggleSign(state.previousOperand);
+            mainDisplay.textContent = state.previousOperand || '0';
+            tempArray[0] = state.previousOperand;
+        }
+    }
+    ////Set the operator
     else if(event.target.dataset.type === "operator"){
         state.operator = inputChoice
         tempArray[1] = event.target.textContent
     }
-    //Handle Follow Up Operator
+    //Handle Follow Up Operand
     else if((event.target.dataset.type === "number" || event.target.dataset.type === "decimal") && state.operator.length > 0) {
         if(state.nextOperand.length > 7) return 
 
         if(inputChoice === "." && state.nextOperand.includes(".")) return
-        //Remove initially displayed zero when capturing operand input
+        ////Remove initially displayed zero when capturing operand input
         if(state.nextOperand == '0'){
             state.nextOperand = event.target.dataset.value
         }
@@ -136,6 +159,7 @@ calculator.addEventListener('click', (event) => {
         mainDisplay.textContent = state.nextOperand
         tempArray[2] = state.nextOperand
     }
+    //Handle the full calculation.
     else if(event.target.dataset.value === "equals"){
         let result = calculate(state.previousOperand, state.operator, state.nextOperand)
         tempArray[0] = result
@@ -147,6 +171,7 @@ calculator.addEventListener('click', (event) => {
         state.nextOperand = ''
     }
 
+    //Amend the temporary, running display
     tempDisplay.textContent = tempArray.join('')
      //Console Logs
     logState()
