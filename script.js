@@ -1,4 +1,4 @@
-//VARIABLES
+// VARIABLES
 const powerBtn = document.getElementById("power")
 const powerSvg = document.getElementById("SVGRepo_iconCarrier").firstElementChild
 const bgDisplay = document.getElementById("display-background")
@@ -6,10 +6,34 @@ const tempDisplay = document.getElementById("temp-display")
 const mainDisplay = document.getElementById("main-display")
 const titleBar = document.getElementById("title")
 const calculator = document.querySelector(".calculator")
+const keyMap = {
+  '0': { type: 'number', value: '0' },
+  '1': { type: 'number', value: '1' },
+  '2': { type: 'number', value: '2' },
+  '3': { type: 'number', value: '3' },
+  '4': { type: 'number', value: '4' },
+  '5': { type: 'number', value: '5' },
+  '6': { type: 'number', value: '6' },
+  '7': { type: 'number', value: '7' },
+  '8': { type: 'number', value: '8' },
+  '9': { type: 'number', value: '9' },
+  '.': { type: 'decimal', value: '.' },
+  '+': { type: 'operator', value: 'add' },
+  '-': { type: 'operator', value: 'subtract' },
+  '*': { type: 'operator', value: 'multiply' },
+  '/': { type: 'operator', value: 'divide' },
+  '%': { type: 'operator', value: 'percentage' },
+  'Enter': { type: 'action', value: 'equals' },
+  '=': { type: 'action', value: 'equals' },
+  'Escape': { type: 'action', value: 'allClear' },
+  'c': { type: 'action', value: 'allClear' },
+  'C': { type: 'action', value: 'allClear' }
+};
+
 let runningState = false
 let tempArray = []
 
-//STATE OBJECT
+// STATE OBJECT
 const state = {
     isPowerOn: false,
     previousOperand: '0',
@@ -17,7 +41,7 @@ const state = {
     nextOperand: '',
 };
 
-//FUNCTIONS
+// FUNCTIONS
 function lightUp(){
     
     powerBtn.classList.toggle('pwr-on');
@@ -76,6 +100,7 @@ function toggleSign(value) {
     if (!value || value === '0') return '-';
     return value.startsWith('-') ? value.slice(1) : '-' + value;
 }
+
 function logState(){
     console.log(tempArray)
     console.log(`isPowerOn: ${state.isPowerOn}
@@ -84,7 +109,7 @@ operator: ${state.operator}
 nextOperand: ${state.nextOperand}`)
 }
 
-//EVENT LISTENERS
+// EVENT LISTENERS
 
 //Power-Up Listener
 powerBtn.addEventListener('click', function () { 
@@ -93,7 +118,7 @@ powerBtn.addEventListener('click', function () {
     setMainDisplay() 
 });
 
-//Main listener
+// MOUSE LISTENER
 calculator.addEventListener('click', (event) => {
     
     //If calculator isn't powered on, don't allow any input to be captured
@@ -187,6 +212,22 @@ calculator.addEventListener('click', (event) => {
     tempDisplay.textContent = tempArray.join('')
      //Console Logs
     logState()
+});
+
+// KEYBOARD LISTENER
+window.addEventListener('keydown', (event) => {
+  if (!state.isPowerOn) return;
+  const mappedKey = keyMap[event.key];
+  if (!mappedKey) return; // Ignore unmapped keys (like spacebar, letters, etc.)
+  event.preventDefault();
+
+  const button = calculator.querySelector(`button[data-value="${mappedKey.value}"]`);
+
+  if (button) {
+    button.click();
+    button.classList.add('active-key');
+    setTimeout(() => button.classList.remove('active-key'), 100);
+  }
 });
 
 
