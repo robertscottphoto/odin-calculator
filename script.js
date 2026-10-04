@@ -73,8 +73,7 @@ function calculate(first, operator, second) {
       return second;
     }
 function toggleSign(value) {
-    if (!value || value === '0') return value;
-
+    if (!value || value === '0') return '-';
     return value.startsWith('-') ? value.slice(1) : '-' + value;
 }
 function logState(){
@@ -139,6 +138,19 @@ calculator.addEventListener('click', (event) => {
             tempArray[0] = state.previousOperand;
         }
     }
+
+    //Handle any negative numbers
+    else if(event.target.dataset.value === "subtract" && (state.previousOperand === '' || state.previousOperand === '0')){
+        state.previousOperand = '-';
+        mainDisplay.textContent = '-';
+        tempArray[0] = '-';
+    }
+    else if(event.target.dataset.value === "subtract" && state.operator !== '' && state.nextOperand === ''){
+        state.nextOperand = '-';
+        mainDisplay.textContent = '-';
+        tempArray[2] = '-';
+    }
+
     ////Set the operator
     else if(event.target.dataset.type === "operator"){
         state.operator = inputChoice
